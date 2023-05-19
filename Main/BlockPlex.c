@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include "../Headers/FileDisplay.h"
-int main()
+int main(void)
 {
-    int choice;
+    int choice,row,column;
+    char filename[40];
     while (1)
     {
         begin();
@@ -11,8 +12,11 @@ int main()
         if (choice > 4 || choice < 1)
         {
             invalid_input();
-            scanf("%*s");
             continue;
         }
+        sprintf(filename, "../Data/Movie-%d.txt", choice);
+        read_file(filename);
+        break;
     }
+    return 0;
 }
