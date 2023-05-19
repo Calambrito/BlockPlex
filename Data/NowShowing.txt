@@ -1,0 +1,10 @@
+Welcome to BlockPlex, the largest Movie theater in Bangladesh!!!
+
+Now Showing:
+
+1) Injustice League
+2) Jurassic Goli
+3) Captain DC
+4) Spider-Man Homeless
+
+Enter the number of the movie you would like to watch: 
