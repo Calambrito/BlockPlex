@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include "../Headers/FileDisplay.h"
-#include "../Headers/CMath.h"
 int main(void)
 {
     int choice;
-    char filename[40], seat_index[2];
+    char filename[40], seat_index[2], *fpath;
+    fpath = filename;
     while (1)
     {
         begin();
@@ -18,10 +18,11 @@ int main(void)
         }
         sprintf(filename, "../Data/Movie-%d.txt", choice);
         read_file(filename);
-        if(choice == 4)
-        continue;
-        scanf("%s", &seat_index);
-        replace_value_in_file("../Data/Movie-1.txt",seat_index);
+        if (choice == 4)
+            continue;
+        sprintf(filename, "../Data/Movie-%d.txt", choice);
+        scanf(" %s", seat_index);
+        replace_value_in_file(fpath, seat_index);
         break;
     }
     return 0;
