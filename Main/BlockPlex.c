@@ -4,7 +4,7 @@
 int main(void)
 {
     int choice;
-    char filename[] = "../Data/Movie-$.txt", seat_index[3] = "HH\0";
+    char filepath[] = "../Data/Movie-$.txt", seat_index[3] = "HH\0";
     while (1)
     {
         begin();
@@ -16,18 +16,17 @@ int main(void)
             invalid_input();
             continue;
         }
-        filename[14] = (char)(choice + 48);
-        read_file(filename);
+        filepath[14] = (char)(choice + 48);
+        read_file(filepath);
         if (choice == 4)
         {
             usleep(1300000);
             continue;
         }
         scanf(" %c%c", &seat_index[0], &seat_index[1]);
-        puts(filename);
-        puts(seat_index);
-        replace_value_in_file(filename, seat_index);
+        replace_value_in_file(filepath, seat_index);
         break;
+
     }
     return 0;
 }

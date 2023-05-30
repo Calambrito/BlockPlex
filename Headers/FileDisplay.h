@@ -1,5 +1,6 @@
 #include <stdio.h>
-
+#include <string.h>
+#include <unistd.h>
 void begin()
 {
     FILE *file;
@@ -41,41 +42,12 @@ void invalid_input()
     system("cls");
 }
 
-void replace_value_in_file(const char *filename, const char *position)
+void replace_value_in_file(const char *filepath, const char *position)
 {
-    FILE *file = fopen(filename, "r+");
-    if (file != NULL)
-    {
-        char line[256];
-        char *found;
-        long filePosition = -1;
-        int lineNumber = 1;
-        while (fgets(line, sizeof(line), file) != NULL)
-        {
-            found = strstr(line, position);
-            if (found != NULL)
-            {
-                filePosition = (found - line);
-                break;
-            }
-            lineNumber++;
-        }
-        if (filePosition != -1)
-        {
-            fseek(file, filePosition + 1, SEEK_SET);
-            fputc('X', file);
-            fseek(file, filePosition, SEEK_SET);
-            fputc(' ', file);
-            printf("Value replaced at line %d.\n", lineNumber);
-        }
-        else
-        {
-            printf("Position not found in the file.\n");
-        }
-        fclose(file);
-    }
-    else
-    {
-        printf("Failed to open the file.\n");
-    }
+    int index = ((int)position[0] - 65) * 36 + 2 * ((int)position[0] - 65) + 6 * ((int)position[1] - 48) - 2;
+    FILE *file = fopen(filepath, "r+");
+    fseek(file, index, SEEK_SET);
+    fputc(' ', file);
+    fputc('X', file);
+    fclose(file);
 }
