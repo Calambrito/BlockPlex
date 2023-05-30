@@ -41,33 +41,41 @@ void invalid_input()
     system("cls");
 }
 
-void replace_value_in_file(const char* filename, const char* position) {
-    FILE* file = fopen(filename, "r+");
-    puts(filename);
-    if (file != NULL) {
+void replace_value_in_file(const char *filename, const char *position)
+{
+    FILE *file = fopen(filename, "r+");
+    if (file != NULL)
+    {
         char line[256];
-        char* found;
+        char *found;
         long filePosition = -1;
-        int lineNumber = 1;      
-        while (fgets(line, sizeof(line), file) != NULL) {
-            found = strstr(line, position);           
-            if (found != NULL) {
+        int lineNumber = 1;
+        while (fgets(line, sizeof(line), file) != NULL)
+        {
+            found = strstr(line, position);
+            if (found != NULL)
+            {
                 filePosition = (found - line);
                 break;
-            }            
+            }
             lineNumber++;
-        }        
-        if (filePosition != -1) {
+        }
+        if (filePosition != -1)
+        {
             fseek(file, filePosition + 1, SEEK_SET);
             fputc('X', file);
             fseek(file, filePosition, SEEK_SET);
             fputc(' ', file);
             printf("Value replaced at line %d.\n", lineNumber);
-        } else {
+        }
+        else
+        {
             printf("Position not found in the file.\n");
-        }        
+        }
         fclose(file);
-    } else {
+    }
+    else
+    {
         printf("Failed to open the file.\n");
     }
 }
