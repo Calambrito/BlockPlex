@@ -18,29 +18,30 @@ void book_tickets(char arr[][3], int *choice)
 int pay(int choice)
 {
     srand(time(0));
-    char number[11];
+    char number[12];
     printf("Your total bill for %d ticket(s) is %d BDT.\nOnline Payments must be paid through NoKash\n\n", choice, choice * 450);
-    printf("Enter your Bkash number: ");
+    printf("Enter your NoKash number: ");
     scanf(" %s", number);
+    number[11] = '\0';
     int OTP = (rand() % (900000)) + 100000, E_OTP;
     FILE *file;
     file = fopen("../Data/OTP.txt", "w");
     fprintf(file, "%d", OTP);
     fclose(file);
-    printf("Please enter the OTP sent to the number %s", number);
+    printf("Please enter the OTP sent to the number %s\n >>", number);
     scanf("%d", &E_OTP);
     if (E_OTP == OTP)
         return 1;
     return 0;
 }
 
-void confirm(const char filepath[][3], const char *position, int num)
+void confirm(const char seatindex[][3], const char filepath[], int num)
 {
     char final[3] = "NN\0";
     for (int i = 0; i < num; i++)
     {
-        final[0] = filepath[i][0];
-        final[1] = filepath[i][1];
+        final[0] = seatindex[i][0];
+        final[1] = seatindex[i][1];
         replace(filepath, final);
     }
 }

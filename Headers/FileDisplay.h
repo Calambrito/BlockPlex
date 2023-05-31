@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
 void begin()
 {
     FILE *file;
