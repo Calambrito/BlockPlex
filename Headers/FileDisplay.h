@@ -41,13 +41,3 @@ void invalid_input()
     usleep(1300000);
     system("cls");
 }
-
-void replace_value_in_file(const char *filepath, const char *position)
-{
-    int index = ((int)position[0] - 65) * 36 + 2 * ((int)position[0] - 65) + 6 * ((int)position[1] - 48) - 2;
-    FILE *file = fopen(filepath, "r+");
-    fseek(file, index, SEEK_SET);
-    fputc(' ', file);
-    fputc('X', file);
-    fclose(file);
-}
