@@ -1,18 +1,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "../Headers/FileDisplay.h"
-#include "../Headers/Booking.h"
+#include "../Headers/menu.h"
+#include "../Headers/splash.h"
+
 int main(void)
 {
     int choice, paid;
     char filepath[] = "../Data/Movie-$.txt", seat_index[36][3];
     while (1)
     {
+        fflush(stdin);
         begin();
         read_file("../Data/NowShowing.txt");
         scanf("%d", &choice);
-        fflush(stdin);
         if (choice > 4 || choice < 1)
         {
             invalid_input();
@@ -25,13 +26,15 @@ int main(void)
             usleep(1300000);
             continue;
         }
-        book_tickets(seat_index, &choice);
+        book_tickets(seat_index, &choice, filepath);
         paid = pay(choice);
-        if (paid)
-            confirm(seat_index, filepath, choice);
-        else
+        issue(paid, seat_index, filepath, choice);
+        if (!paid)
+        {
+            usleep(1300000);
             continue;
-        puts("Your tickets have been confirmed! Thank You For Choosing BlockPlex.");
+        }
+        printf("\nYour tickets have been confirmed! Thank You For Choosing BlockPlex.\n");
 
         break;
     }
