@@ -23,7 +23,7 @@ void begin()
             putchar(ch);
         }
         printf("\n\n");
-        usleep(300000);
+        usleep(100000);
     }
 }
 

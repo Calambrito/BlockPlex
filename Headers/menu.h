@@ -14,6 +14,7 @@ void book_tickets(char arr[][3], int *choice, char fpath[])
         fflush(stdin);
         printf("How many tickets would you like to book > ");
         scanf("%d", choice);
+        printf("\n");
         if (*choice >= 1 && *choice <= 24)
             break;
         printf("Invalid Choice, Please Try Again.\n");
@@ -57,11 +58,11 @@ void book_tickets(char arr[][3], int *choice, char fpath[])
         }
     }
 }
-int pay(int choice)
+int pay(int choice,int discount)
 {
     srand(time(0));
     char number[12];
-    printf("Your total bill for %d ticket(s) is %d BDT.\nOnline Payments must be paid through NoKash\n\n", choice, choice * 450);
+    printf("\nYour total bill for %d ticket(s) is %d BDT.\nOnline Payments must be paid through NoKash\n\n", choice, (choice * 400 / discount));
     printf("Enter your NoKash number: ");
     scanf(" %s", number);
     number[11] = '\0';
@@ -70,7 +71,7 @@ int pay(int choice)
     file = fopen("../Data/OTP.txt", "w");
     fprintf(file, "%d", OTP);
     fclose(file);
-    printf("Please enter the OTP sent to the number %s\n >>", number);
+    printf("Please enter the OTP sent to the number %s\n>>", number);
     scanf("%d", &E_OTP);
     if (E_OTP == OTP)
         return 1;
@@ -118,4 +119,10 @@ int istaken(char filepath[], char position[])
         output = 1;
     fclose(file);
     return output;
+}
+
+void generate(int *ID)
+{
+    srand(time(0));
+    *ID = (rand() % (9000000000)) + 1000000000;
 }

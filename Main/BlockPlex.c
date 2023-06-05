@@ -3,10 +3,11 @@
 #include <ctype.h>
 #include "../Headers/menu.h"
 #include "../Headers/splash.h"
+#include "../Headers/login.h"
 
 int main(void)
-{
-    int choice, paid;
+{   Profile Member;
+    int choice, paid, discount = 1, bookingID;
     char filepath[] = "../Data/Movie-$.txt", seat_index[36][3];
     while (1)
     {
@@ -27,7 +28,8 @@ int main(void)
             continue;
         }
         book_tickets(seat_index, &choice, filepath);
-        paid = pay(choice);
+        member(Member, &discount);
+        paid = pay(choice, discount);
         issue(paid, seat_index, filepath, choice);
         if (!paid)
         {
@@ -35,7 +37,8 @@ int main(void)
             continue;
         }
         printf("\nYour tickets have been confirmed! Thank You For Choosing BlockPlex.\n");
-
+        generate(bookingID);
+        printf("Here is your confidencial booking ID, bring it to any BlockPlex ticket booth to recieve your tickets.\nBooking ID: %d", bookingID);
         break;
     }
     return 0;
