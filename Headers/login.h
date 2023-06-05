@@ -72,7 +72,7 @@ int verified(Profile Member, int index)
         for (int i = 1; i <= userCount; i++)
         {
             int j = 0;
-            passwordIndex = i * 20;
+            passwordIndex = i * 40 - 20;
             FILE *file = fopen("../Data/Users.txt", "r");
             fseek(file, passwordIndex, SEEK_SET);
             while ((characterBuffer = fgetc(file)) != '-')
