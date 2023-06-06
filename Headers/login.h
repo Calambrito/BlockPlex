@@ -69,10 +69,9 @@ int verified(Profile Member, int index)
         fflush(stdin);
         printf("Enter your RoyalPlex Password >");
         gets(Member.Password);
-        for (int i = 1; i <= userCount; i++)
-        {
+
             int j = 0;
-            passwordIndex = i * 40 - 20;
+            passwordIndex = (index + 1) * 40 - 20;
             FILE *file = fopen("../Data/Users.txt", "r");
             fseek(file, passwordIndex, SEEK_SET);
             while ((characterBuffer = fgetc(file)) != '-')
@@ -88,7 +87,7 @@ int verified(Profile Member, int index)
                 printf("Login successful!\nYou will now recieve a 50%% discount on your purchase.\n");
                 return 1;
             }
-        }
+        
         printf("Incorrect Password Try Again!\n");
     }
 }

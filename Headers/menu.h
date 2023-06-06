@@ -58,24 +58,29 @@ void book_tickets(char arr[][3], int *choice, char fpath[])
         }
     }
 }
-int pay(int choice,int discount)
+int pay(int choice, int discount)
 {
-    srand(time(0));
+    srand(time(NULL));
     char number[12];
     printf("\nYour total bill for %d ticket(s) is %d BDT.\nOnline Payments must be paid through NoKash\n\n", choice, (choice * 400 / discount));
     printf("Enter your NoKash number: ");
     scanf(" %s", number);
     number[11] = '\0';
-    int OTP = (rand() % (900000)) + 100000, E_OTP;
-    FILE *file;
-    file = fopen("../Data/OTP.txt", "w");
-    fprintf(file, "%d", OTP);
-    fclose(file);
-    printf("Please enter the OTP sent to the number %s\n>>", number);
-    scanf("%d", &E_OTP);
-    if (E_OTP == OTP)
-        return 1;
-    return 0;
+    while (1)
+    {
+        int OTP = 0, E_OTP;
+        for (int i = 0; i < 6; i++)
+            OTP = OTP * 10 + (rand() % 10);
+        FILE *file;
+        file = fopen("../Data/OTP.txt", "w");
+        fprintf(file, "%d", OTP);
+        fclose(file);
+        printf("Please enter the OTP sent to the number %s\n>>", number);
+        scanf("%d", &E_OTP);
+        if (E_OTP == OTP)
+            return 1;
+        printf("Incorrect OTP please try again!\n");
+    }
 }
 
 void confirm(char seatindex[][3], char filepath[], int num)
@@ -91,7 +96,7 @@ void confirm(char seatindex[][3], char filepath[], int num)
 
 void replace(char *filepath, char *position)
 {
-    int index = ((int)position[0] - 65) * 38 + 6 * ((int)position[1] - 48);
+    int index = ((int)position[0] - 65) * 38 + 6 * ((int)position[1] - 48) + 36;
     FILE *file = fopen(filepath, "r+");
     fseek(file, index, SEEK_SET);
     fputc(' ', file);
@@ -112,7 +117,7 @@ void issue(int paid, char seat_index[][3], char filepath[], int choice)
 int istaken(char filepath[], char position[])
 {
     char c;
-    int index = ((int)position[0] - 65) * 38 + 6 * ((int)position[1] - 48) + 1, output = 0;
+    int index = ((int)position[0] - 65) * 38 + 6 * ((int)position[1] - 48) + 37, output = 0;
     FILE *file = fopen(filepath, "r");
     fseek(file, index, SEEK_SET);
     if ((c = fgetc(file)) == 'X')
@@ -123,6 +128,8 @@ int istaken(char filepath[], char position[])
 
 void generate(int *ID)
 {
-    srand(time(0));
-    *ID = (rand() % (9000000000)) + 1000000000;
+    srand(time(NULL));
+    for (int i = 0; i < 9; i++)
+        *ID = *ID * 10 + (rand() % 10);
+
 }

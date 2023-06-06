@@ -6,8 +6,10 @@
 #include "../Headers/login.h"
 
 int main(void)
-{   Profile Member;
-    int choice, paid, discount = 1, bookingID;
+
+{
+    Profile Member;
+    int choice, paid = 0, discount = 1, bookingID;
     char filepath[] = "../Data/Movie-$.txt", seat_index[36][3];
     while (1)
     {
@@ -15,7 +17,7 @@ int main(void)
         begin();
         read_file("../Data/NowShowing.txt");
         scanf("%d", &choice);
-        if (choice > 4 || choice < 1)
+        if (choice > 5 || choice < 1)
         {
             invalid_input();
             continue;
@@ -37,8 +39,9 @@ int main(void)
             continue;
         }
         printf("\nYour tickets have been confirmed! Thank You For Choosing BlockPlex.\n");
-        generate(bookingID);
-        printf("Here is your confidencial booking ID, bring it to any BlockPlex ticket booth to recieve your tickets.\nBooking ID: %d", bookingID);
+        generate(&bookingID);
+        printf("Here is your confidential booking ID, bring it to any BlockPlex ticket booth to recieve your tickets.\nBooking ID: %d\n\n", bookingID);
+        map();
         break;
     }
     return 0;

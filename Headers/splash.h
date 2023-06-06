@@ -4,8 +4,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <windows.h>
+#include <ctype.h>
 
-void begin()
+void begin(void)
 {
     FILE *file;
     char filename[48];
@@ -44,4 +46,30 @@ void invalid_input()
     read_file("../ASCII/InvalidChoice.txt");
     usleep(1300000);
     system("cls");
+}
+
+void open_jpeg_file(const char *filename)
+{
+    HINSTANCE result = ShellExecute(NULL, "open", filename, NULL, NULL, SW_SHOWNORMAL);
+}
+
+void map(void)
+{
+    char c;
+    puts("Would you like to see a map of the layout of BlockPlex so you can have an easier time locating your hall?(Y/N))");
+    scanf(" %c", &c);
+    toupper(c);
+    while (c != 'Y' && c != 'N' && c != 'y' && c != 'n')
+    {
+        fflush(stdin);
+        printf("Invalid Response Please Try again\n>");
+        scanf(" %c", &c);
+    }
+    if (c == 'Y' || c == 'y')
+    {
+        system("cls");
+        printf("The hall name for your corresponding movie can be found on your ticket once you recieve them from the ticket booth");
+        usleep(3000000);
+        open_jpeg_file("..\\Data\\floorPlan.jpg");
+    }
 }

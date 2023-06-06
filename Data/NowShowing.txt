@@ -1,4 +1,6 @@
-Welcome to BlockPlex, the largest Movie theater in Bangladesh!!!
+============================================================================
+      Welcome to BlockPlex, the largest Movie theater in Bangladesh!!!
+============================================================================
 
 Now Showing:
 
@@ -6,5 +8,6 @@ Now Showing:
 2) Jurassic Goli
 3) Captain DC
 4) Spider-Man Homeless
+5) Nisshartho Day
 
 Enter the number of the movie you would like to watch: 
