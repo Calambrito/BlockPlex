@@ -48,7 +48,7 @@ void invalid_input()
     system("cls");
 }
 
-void openJPG(const char *filename)
+void openJPG( char filename[])
 {
     HINSTANCE result = ShellExecute(NULL, "open", filename, NULL, NULL, SW_SHOW);
     

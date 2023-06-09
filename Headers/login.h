@@ -24,7 +24,7 @@ void member(Profile Member, int *discount)
 }
 void login(Profile Member, int *discount)
 {
-    int userIndex, userCount = 4, found, i;
+    int userIndex, userCount = 5, found, i;
     char checker[18], characterBuffer;
     while (1)
     {

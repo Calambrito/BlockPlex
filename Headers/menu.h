@@ -178,12 +178,12 @@ int checkWin(int num, int position)
     int winArray[] = {24, 12, 1, 3, 65, 4, 6, 45};
     if (position < 0)
     {
-        printf("\n\nSorry %d was not any of the numbers chosen for this months lottery! Good luck at your future attempts!", num);
+        printf("\n\nSorry %d was not any of the numbers chosen for this months lottery! Good luck at your future attempts!\n\n", num);
         return 0;
     }
     if (num == winArray[position])
     {
-        printf("\n\nCongratulations %d is one of the winning numbers for this lotter, you can collect your gift from our BlockPlex ticket booth", num);
+        printf("\n\nCongratulations %d is one of the winning numbers for this lottery, you can collect your gift from our BlockPlex ticket booth\n\n", num);
         return 1;
     }
     return checkWin(num, position - 1);
