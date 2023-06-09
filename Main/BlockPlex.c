@@ -9,7 +9,7 @@ int main(void)
 
 {
     Profile Member;
-    int choice, paid = 0, discount = 1, bookingID;
+    int choice, paid = 0, discount = 1, bookingID, lotteryStatus = 0;
     char filepath[] = "../Data/Movie-$.txt", seat_index[36][3];
     while (1)
     {
@@ -33,14 +33,14 @@ int main(void)
         member(Member, &discount);
         paid = pay(choice, discount);
         issue(paid, seat_index, filepath, choice);
-        if (!paid)
-        {
-            usleep(1300000);
-            continue;
-        }
         printf("\nYour tickets have been confirmed! Thank You For Choosing BlockPlex.\n");
         generate(&bookingID);
         printf("Here is your confidential booking ID, bring it to any BlockPlex ticket booth to recieve your tickets.\nBooking ID: %d\n\n", bookingID);
+        if (discount == 2)
+        {
+            lottery(&lotteryStatus);
+        }
+        createFile(bookingID, seat_index, choice, lotteryStatus);
         map();
         break;
     }

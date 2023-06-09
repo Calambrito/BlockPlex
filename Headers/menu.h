@@ -7,15 +7,19 @@
 
 void book_tickets(char arr[][3], int *choice, char fpath[])
 {
-    char temparr[3];
-    int SumArray[48], tempc;
+    char temparr[3], seatBuffer[999];
+    int SumArray[48];
     while (1)
     {
         fflush(stdin);
         printf("How many tickets would you like to book > ");
-        scanf("%d", choice);
-        printf("\n");
-        if (*choice >= 1 && *choice <= 24)
+        if (scanf("%d", choice) != 1)
+        {
+            while (getchar() != '\n')
+                ;
+            printf("Invalid Option. Please try again.\n");
+        }
+        else if (*choice >= 1 && *choice <= 24)
             break;
         printf("Invalid Choice, Please Try Again.\n");
     }
@@ -23,6 +27,7 @@ void book_tickets(char arr[][3], int *choice, char fpath[])
     {
         while (1)
         {
+            fflush(stdin);
             int repeated = 0;
             printf("Enter index of seat %d: ", i + 1);
             scanf(" %c%c", &arr[i][0], &arr[i][1]);
@@ -68,6 +73,7 @@ int pay(int choice, int discount)
     number[11] = '\0';
     while (1)
     {
+        fflush(stdin);
         int OTP = 0, E_OTP;
         for (int i = 0; i < 6; i++)
             OTP = OTP * 10 + (rand() % 10);
@@ -131,5 +137,54 @@ void generate(int *ID)
     srand(time(NULL));
     for (int i = 0; i < 9; i++)
         *ID = *ID * 10 + (rand() % 10);
+}
 
+void createFile(int ID, char arr[][3], int choice, int lottery)
+{
+    char stringID[29];
+    sprintf(stringID, "../Data/reciept-%d.txt", ID);
+    FILE *fp = fopen(stringID, "w");
+    for (int i = 0; i < choice; i++)
+    {
+        fprintf(fp, "%c%c", arr[i][0], arr[i][1]);
+        if (i < choice - 1)
+            fprintf(fp, ", ");
+    }
+    if (lottery)
+        fprintf(fp, ", lottery winner");
+    fclose(fp);
+}
+void lottery(int *status)
+{
+    int guess;
+    printf("\n\n\nAs a member of RoyalPlex, you qualify for the BlockPlex Monthly Lottery!\nPick a number from 1-100 in order to win exciting gifts from BlockPlex\n\nYour Guess >");
+    while (1)
+    {
+        if (scanf("%d", &guess) != 1)
+        {
+            while (getchar() != '\n')
+                ;
+            printf("Invalid Option Please Try Again");
+        }
+        else if (guess > 100 || guess < 1)
+            printf("Invalid Option Please Try Again");
+        else
+            break;
+    }
+    *status = checkWin(guess, 7);
+}
+int checkWin(int num, int position)
+{
+    int winArray[] = {24, 12, 1, 3, 65, 4, 6, 45};
+    if (position < 0)
+    {
+        printf("\n\nSorry %d was not any of the numbers chosen for this months lottery! Good luck at your future attempts!", num);
+        return 0;
+    }
+    if (num == winArray[position])
+    {
+        printf("\n\nCongratulations %d is one of the winning numbers for this lotter, you can collect your gift from our BlockPlex ticket booth", num);
+        return 1;
+    }
+    return checkWin(num, position - 1);
 }

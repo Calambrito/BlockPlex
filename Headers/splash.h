@@ -25,7 +25,7 @@ void begin(void)
             putchar(ch);
         }
         printf("\n\n");
-        usleep(100000);
+        usleep(150000);
     }
 }
 
@@ -48,9 +48,10 @@ void invalid_input()
     system("cls");
 }
 
-void open_jpeg_file(const char *filename)
+void openJPG(const char *filename)
 {
-    HINSTANCE result = ShellExecute(NULL, "open", filename, NULL, NULL, SW_SHOWNORMAL);
+    HINSTANCE result = ShellExecute(NULL, "open", filename, NULL, NULL, SW_SHOW);
+    
 }
 
 void map(void)
@@ -70,6 +71,6 @@ void map(void)
         system("cls");
         printf("The hall name for your corresponding movie can be found on your ticket once you recieve them from the ticket booth");
         usleep(3000000);
-        open_jpeg_file("..\\Data\\floorPlan.jpg");
+        openJPG("..\\Data\\floorPlan.jpg");
     }
 }
